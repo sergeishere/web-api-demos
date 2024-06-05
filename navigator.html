@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Manager</title>
+</head>
+<body>
+    <h1>Cookie Manager</h1>
+<button onclick="addCookie()">Add Cookie</button>
+<table id="cookieTable">
+    <tr>
+        <th>Name</th>
+        <th>Value</th>
+        <th>Action</th>
+    </tr>
+</table>
+
+<script>
+    function addCookie() {
+        const cookieName = prompt('Enter the cookie name:');
+        const cookieValue = prompt('Enter the cookie value:');
+
+        document.cookie = `${cookieName}=${cookieValue}`;
+
+        displayCookies();
+    }
+
+    function deleteCookie(cookieName) {
+        document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC;`;
+
+        displayCookies();
+    }
+
+    function displayCookies() {
+        const cookieTable = document.getElementById('cookieTable');
+        cookieTable.innerHTML = '<tr><th>Name</th><th>Value</th><th>Action</th></tr>';
+
+        document.cookie.split('; ').forEach(cookie => {
+            const [name, value] = cookie.split('=');
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${name}</td>
+                <td>${value}</td>
+                <td><button onclick="deleteCookie('${name}')">Delete</button></td>
+            `;
+            cookieTable.appendChild(row);
+        });
+    }
+
+    window.addEventListener('load', () => {
+        displayCookies();
+    });
+</script>
+</body>
+</html>
