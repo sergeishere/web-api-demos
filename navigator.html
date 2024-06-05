@@ -7,7 +7,10 @@
     <title>Cookie Manager</title>
 </head>
 <body>
-    <h1>Cookie Manager</h1>
+    <h1>Info</h1>
+    <h2>User Agent Information</h2>
+    <p id="userAgentInfo">User Agent: </p>
+    <h2>Cookie Manager</h2>
 <button onclick="addCookie()">Add Cookie</button>
 <table id="cookieTable">
     <tr>
@@ -51,6 +54,9 @@
 
     window.addEventListener('load', () => {
         displayCookies();
+
+        const userAgentInfo = navigator.userAgent;
+        document.getElementById('userAgentInfo').textContent = `User Agent: ${userAgentInfo}`;
     });
 </script>
 </body>
